@@ -2,7 +2,7 @@
 These are the changes I've made to Udacity's Intro to Backend hw3 so that it uses ndb instead of db.
 
 1. from google.appengine.ext import ndb 
-          to:
+          to
 
 from google.appengine.ext import ndb
 
@@ -14,7 +14,7 @@ class Post(db.Model):
     created = db.DateTimeProperty(auto_now_add = True)
     last_modified = db.DateTimeProperty(auto_now = True)
     
-            to:
+            to
 
 class Post(ndb.Model):
     subject = ndb.StringProperty(required = True)
@@ -26,26 +26,26 @@ class Post(ndb.Model):
 
 posts = db.GqlQuery("select * from Post order by created desc limit 10")
 
-                       to:
+                       to
 
 posts = ndb.gql("select * from Post order by created desc limit 10")
 
 
 4. return db.Key.from_path('blogs', name)  
 
-        to:
+        to
 
 return ndb.Key('blogs', name)
 
 5. post = db.get(key)  
 
-        to:
+        to
         
 post = key.get()
 
 6. key = db.Key.from_path('Post', int(post_id), parent=blog_key())   
 
-                  to:
+                  to
 
 key = ndb.Key('Post', int(post_id), parent=blog_key())
 
