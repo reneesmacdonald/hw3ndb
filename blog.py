@@ -79,14 +79,8 @@ class NewPost(BlogHandler):
         if subject and content:
             p = Post(parent = blog_key(), subject = subject, content = content)
             p.put()
-            #post_key = key.get()
             key = blog_key()
-            #newpost = key.get()
-
-            print "************************blog key", blog_key()
-
             self.redirect('/blog/%s' % str(p.key.integer_id()))
-            #self.redirect('/blog/%s' % str(p.key().id()))
         else:
             error = "subject and content, please!"
             self.render("newpost.html", subject=subject, content=content, error=error)
