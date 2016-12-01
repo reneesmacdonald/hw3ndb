@@ -53,7 +53,7 @@ class Post(ndb.Model):
 
 class BlogFront(BlogHandler):
     def get(self):
-        posts = ndb.gql("select * from Post order by created desc limit 10")
+        posts = Post.query().order('-Post.created')
         self.render('front.html', posts = posts)
 
 class PostPage(BlogHandler):
