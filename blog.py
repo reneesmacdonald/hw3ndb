@@ -6,7 +6,6 @@ import jinja2
 
 from google.appengine.ext import ndb
 
-
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
                                autoescape = True)
@@ -56,7 +55,6 @@ class BlogFront(BlogHandler):
 class PostPage(BlogHandler):
     def get(self, post_id):
         key = ndb.Key('Post', int(post_id), parent=blog_key())
-        #post = db.get(key)
         post = key.get()
 
         if not post:
