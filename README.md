@@ -1,6 +1,8 @@
 # hw3ndb
 These are the changes I've made to Udacity's Intro to Backend hw3 so that it uses ndb instead of db.
 
+Please feel free to make a pull request if you notice any errors. 
+
 1 from google.appengine.ext import ndb 
           to
 
