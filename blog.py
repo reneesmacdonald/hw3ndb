@@ -1,14 +1,10 @@
 import os
 import re
-from string import letters
 
 import webapp2
 import jinja2
 
 from google.appengine.ext import ndb
-
-#import ndb
-#from ndb import model
 
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
@@ -33,8 +29,8 @@ def render_post(response, post):
     response.out.write(post.content)
 
 class MainPage(BlogHandler):
-  def get(self):
-      self.write('Hello, Udacity!')
+    def get(self):
+        self.write('Hello, Udacity!')
 
 ##### blog stuff
 
@@ -59,7 +55,6 @@ class BlogFront(BlogHandler):
 class PostPage(BlogHandler):
     def get(self, post_id):
         key = ndb.Key('Post', int(post_id), parent=blog_key())
-        #post = db.get(key)
         post = key.get()
 
         if not post:
@@ -79,7 +74,6 @@ class NewPost(BlogHandler):
         if subject and content:
             p = Post(parent = blog_key(), subject = subject, content = content)
             p.put()
-            key = blog_key()
             self.redirect('/blog/%s' % str(p.key.integer_id()))
         else:
             error = "subject and content, please!"
@@ -109,7 +103,7 @@ PASS_RE = re.compile(r"^.{3,20}$")
 def valid_password(password):
     return password and PASS_RE.match(password)
 
-EMAIL_RE  = re.compile(r'^[\S]+@[\S]+\.[\S]+$')
+EMAIL_RE = re.compile(r'^[\S]+@[\S]+\.[\S]+$')
 def valid_email(email):
     return not email or EMAIL_RE.match(email)
 
@@ -163,5 +157,5 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                ('/blog/?', BlogFront),
                                ('/blog/([0-9]+)', PostPage),
                                ('/blog/newpost', NewPost),
-                               ],
+                              ],
                               debug=True)
